@@ -1,0 +1,31 @@
+.request {
+    width: 40rem;
+    margin: auto;
+
+    .heading {
+        margin-top: 4rem;
+        text-align: center;
+    }
+    
+    .appeal {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8rem;
+        margin-bottom: 2rem;
+        .user {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .text {
+            text-align: right;
+        }
+    }
+    .request {
+        text-align: center;
+    }
+    .request-content {
+        text-align: left;
+    }
+}
