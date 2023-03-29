@@ -12,11 +12,15 @@ import CustomDateField from '../CustomDateField';
 import PhoneMaskInput from '../PhoneMaskInput';
 import PositionSelect from '../PositionSelect';
 
-const FormContent = ({
-	updateUserInputData,
-	userInputData,
-	setUserInputData,
-}) => {
+const FormContent = ({ userInputData, setUserInputData }) => {
+	const updateUserInputData = (key) => {
+		return (e) => {
+			setUserInputData((prevState) => ({
+				...prevState,
+				[key]: e.target.value,
+			}));
+		};
+	};
 	return (
 		<Box className='content'>
 			<TextField
@@ -50,9 +54,13 @@ const FormContent = ({
 				onChange={updateUserInputData('phoneNumber')}
 				InputProps={{
 					inputComponent: PhoneMaskInput,
+					inputProps: {
+						pattern: '[+][0-9]{2} [0-9]{3} [0-9]{3} [0-9]{2} [0-9]{2}',
+					},
 				}}
 				InputLabelProps={{ shrink: true }}
 				label='Phone number'
+				type='tel'
 				variant='standard'
 				required
 				error={

@@ -34,7 +34,6 @@ const PhoneMaskInput = React.forwardRef((props, _ref) => {
 			ref={inputRef}
 			mask={phoneMask}
 			guide
-			required
 			showMask
 			{...other}
 			onClick={handleMouseClick}

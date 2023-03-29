@@ -7,12 +7,12 @@ import {
 } from '@mui/material';
 import React from 'react';
 import UserForm from '../form/UserForm';
+import SubmitButton from '../SubmitButton';
 
 const VacationModal = ({
 	open,
 	handleClose,
-	userName,
-	userData,
+	errorMessage,
 	onSubmit,
 	userInputData,
 	setUserInputData,
@@ -22,8 +22,7 @@ const VacationModal = ({
 			<DialogTitle>Vacation Form</DialogTitle>
 			<DialogContent>
 				<UserForm
-					userName={userName}
-					userData={userData}
+					errorMessage={errorMessage}
 					onSubmit={onSubmit}
 					userInputData={userInputData}
 					setUserInputData={setUserInputData}
@@ -31,9 +30,7 @@ const VacationModal = ({
 			</DialogContent>
 			<DialogActions>
 				<Button onClick={handleClose}>Cancel</Button>
-				<Button variant='contained' form='user-form' type='submit'>
-					Submit
-				</Button>
+				<SubmitButton form='user-form' />
 			</DialogActions>
 		</Dialog>
 	);

@@ -3,17 +3,17 @@ import React from 'react';
 
 const PositionSelect = ({ positionValue, setUserInputData }) => {
 	const positions = [
-		{ label: 'Developer', value: 'DEV' },
-		{ label: 'Project Manager', value: 'PM' },
-		{ label: 'Content Creator', value: 'CC' },
-		{ label: 'Designer', value: 'DES' },
+		{ label: 'Розробник', value: 'DEV' },
+		{ label: 'Проект менеджер', value: 'PM' },
+		{ label: 'Тестувальник', value: 'TEST' },
+		{ label: 'Дизайнер', value: 'DES' },
+		{ label: 'Начальник', value: 'CEO' },
 	];
 	return (
-		<FormControl>
+		<FormControl required>
 			<InputLabel>Position</InputLabel>
 			<Select
 				label='Position'
-				required
 				value={positionValue}
 				onChange={(e) =>
 					setUserInputData((prevState) => ({

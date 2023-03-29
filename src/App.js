@@ -9,6 +9,7 @@ import { saveToPDF } from './lib/saveToPDF';
 
 function App() {
 	const defaultUserInput = {
+		userName:'',
 		startDate: new Date().toISOString().split('T')[0],
 		finalDate: addDays(new Date()),
 		position: { label: '', value: '' },
@@ -16,10 +17,9 @@ function App() {
 		phoneNumber: '',
 		fullName: '',
 	};
-	const [userName, setUserName] = useState('');
 	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
-	const [userData, setUserData] = useState(null);
+	const [errorMessage, setErrorMessage] = useState('');
 	const [userInputData, setUserInputData] = useState(defaultUserInput);
 	const [formData, setFormData] = useState(null);
 	const contentRef = useRef(null);
@@ -30,24 +30,20 @@ function App() {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		const { fullName, ...other } = userInputData;
+		const { fullName, ...rest } = userInputData;
 		const trimmedName = fullName.trim();
 		setIsFormOpen(false);
 		setFormData({
-			userName,
-			avatar_url: userData?.avatar_url,
 			fullName: trimmedName,
-			...other,
+			...rest,
 		});
 		setUserInputData(defaultUserInput);
-		setUserData(null);
-		setUserName('');
+		setErrorMessage('');
 	};
 
 	const handleClose = () => {
 		setIsFormOpen(false);
-		setUserName('');
-		setUserData(null);
+		setErrorMessage('');
 		setUserInputData(defaultUserInput);
 	};
 
@@ -63,16 +59,14 @@ function App() {
 					setIsLoginFormOpen(false);
 				}}
 				setIsFormOpen={setIsFormOpen}
-				setUserData={setUserData}
-				userName={userName}
-				setUserName={setUserName}
+				setErrorMessage={setErrorMessage}
+				userName={userInputData.userName}
 				setUserInputData={setUserInputData}
 			/>
 			<VacationModal
 				open={isFormOpen}
 				handleClose={handleClose}
-				userName={userName}
-				userData={userData}
+				errorMessage={errorMessage}
 				onSubmit={onSubmit}
 				userInputData={userInputData}
 				setUserInputData={setUserInputData}
@@ -82,4 +76,13 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
 

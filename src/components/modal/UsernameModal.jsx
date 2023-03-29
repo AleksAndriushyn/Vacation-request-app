@@ -8,14 +8,14 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { fetchUserData } from '../../lib/fetchUserData';
+import SubmitButton from '../SubmitButton';
 
 const UsernameModal = ({
 	open,
 	handleClose,
 	setIsFormOpen,
-	setUserData,
+	setErrorMessage,
 	userName,
-	setUserName,
 	setUserInputData,
 }) => {
 	const onSubmit = async (e) => {
@@ -23,11 +23,12 @@ const UsernameModal = ({
 		handleClose();
 		setIsFormOpen(true);
 		const userData = await fetchUserData(userName);
-		setUserData(userData);
+		setErrorMessage(userData?.message ?? '');
 		setUserInputData((prevState) => ({
 			...prevState,
 			fullName: userData.name ?? '',
 			email: userData.email ?? '',
+			avatar_url: userData.avatar_url ?? '',
 		}));
 	};
 
@@ -42,7 +43,12 @@ const UsernameModal = ({
 						required
 						value={userName ?? ''}
 						type='text'
-						onChange={(e) => setUserName(e.target.value)}
+						onChange={(e) =>
+							setUserInputData((prevState) => ({
+								...prevState,
+								userName: e.target.value,
+							}))
+						}
 					/>
 				</form>
 			</DialogContent>
@@ -50,13 +56,14 @@ const UsernameModal = ({
 				<Button
 					onClick={() => {
 						handleClose();
-						setUserName('');
+						setUserInputData((prevState) => ({
+							...prevState,
+							userName: '',
+						}));
 					}}>
 					Cancel
 				</Button>
-				<Button variant='contained' form='login-form' type='submit'>
-					Submit
-				</Button>
+				<SubmitButton form='login-form' />
 			</DialogActions>
 		</Dialog>
 	);
